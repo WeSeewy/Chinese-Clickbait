@@ -1,0 +1,9 @@
+/data
+**/__pycache__
+/.idea
+crawler/*.txt
+/results
+/logs
+/checkpoints
+/runs
+/compat/data
