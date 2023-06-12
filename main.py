@@ -16,6 +16,7 @@ Epoch = 3               # Training epoch
 RandomSeed = 42         # Random seed
 
 DatasetPath = os.path.join("data", "all_labeled.csv")
+LTPDatasetPath = os.path.join("data", "ltp_labeled.csv")
 
 if __name__ == '__main__':
     arg_description = "This script is an implement of PEPL(Part-of-speech Enhanced Prompt Learning) method for " \
@@ -45,7 +46,8 @@ if __name__ == '__main__':
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     if args.mode == 'pepl':
-        DatasetPath = ltp_tag_dataset(DatasetPath)
+        if not os.path.exists(LTPDatasetPath):
+            DatasetPath = ltp_tag_dataset(DatasetPath)
         dataset = utils.wechat_only2_dataset(DatasetPath)
         prompt.run(device, RandomSeed, dataset, args.scale, args.few_shot, args.batch_size, args.learning_rate,
                    args.training_epoch, args.mode, args.pretrained_language_model)
